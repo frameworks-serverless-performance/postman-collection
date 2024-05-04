@@ -1,0 +1,252 @@
+{
+	"info": {
+		"_postman_id": "ae0b1276-2bbf-445d-8e30-f3c7d57d37a6",
+		"name": "Performance testing API",
+		"description": "Requests for testing and debugging the implementations of the performance testing API endpoints used in thesis _Performance and price comparison of three popular backend frameworks and the AWS serverless stack_.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25012487"
+	},
+	"item": [
+		{
+			"name": "/api/echo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"The same string is returned\", function () {\r",
+							"    pm.expect(pm.response.text()).to.equal(\"Hello World!\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/echo?string=Hello World!",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"echo"
+					],
+					"query": [
+						{
+							"key": "string",
+							"value": "Hello World!"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/api/getPrice",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Correct price is returned\", function () {\r",
+							"  const responseData = pm.response.json();\r",
+							"  pm.expect(responseData.itemId).to.equal(\"73eebcb6-a5d8-46ff-8a5e-0b9e79be1489\");\r",
+							"  pm.expect(responseData.quantity).to.equal(2);\r",
+							"  pm.expect(responseData.perItemPrice).to.equal(250);\r",
+							"  pm.expect(responseData.totalPricePreTax).to.equal(500);\r",
+							"  pm.expect(responseData.taxRate).to.equal(0.2);\r",
+							"  pm.expect(responseData.totalPriceWithTax).to.equal(600);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"itemId\": \"73eebcb6-a5d8-46ff-8a5e-0b9e79be1489\",\r\n    \"quantity\": 2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/getPrice",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"getPrice"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/api/compute",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Correct hash is returned\", function () {\r",
+							"  pm.expect(pm.response.text()).to.equal(\"f79f064b519bfb1197b5c0f2e0c03c54e52fada9b850d681f7dd305f047ea1bb\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n    9,\r\n    58,\r\n    79,\r\n    99,\r\n    33,\r\n    67,\r\n    68,\r\n    48,\r\n    26,\r\n    42,\r\n    11,\r\n    37,\r\n    49,\r\n    35,\r\n    28,\r\n    55,\r\n    19,\r\n    72,\r\n    61,\r\n    1,\r\n    19,\r\n    31,\r\n    92,\r\n    84,\r\n    21,\r\n    99,\r\n    25,\r\n    29,\r\n    42,\r\n    61,\r\n    64,\r\n    84,\r\n    99,\r\n    40,\r\n    85,\r\n    39,\r\n    11,\r\n    13,\r\n    29,\r\n    49,\r\n    95,\r\n    29,\r\n    30,\r\n    21,\r\n    12,\r\n    52,\r\n    98,\r\n    51,\r\n    18,\r\n    76,\r\n    5,\r\n    54,\r\n    16,\r\n    28,\r\n    83,\r\n    59,\r\n    59,\r\n    36,\r\n    63,\r\n    22,\r\n    63,\r\n    15,\r\n    41,\r\n    24,\r\n    84,\r\n    62,\r\n    86,\r\n    23,\r\n    95,\r\n    63,\r\n    99,\r\n    46,\r\n    40,\r\n    57,\r\n    97,\r\n    6,\r\n    82,\r\n    96,\r\n    88,\r\n    66,\r\n    60,\r\n    99,\r\n    92,\r\n    75,\r\n    58,\r\n    32,\r\n    15,\r\n    32,\r\n    72,\r\n    61,\r\n    52,\r\n    50,\r\n    61,\r\n    81,\r\n    65,\r\n    46,\r\n    40,\r\n    71,\r\n    32,\r\n    71\r\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/compute",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"compute"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/api/parse",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Correct index is returned\", function () {\r",
+							"  pm.expect(pm.response.text()).to.equal(\"99\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n    \"cf50db42-5c1c-45d8-a59a-8926fb3d8f34\",\r\n    \"457beefc-c9b2-4d3a-8994-034a484173ab\",\r\n    \"b3ff8986-c34b-4296-9389-fbaecadb6780\",\r\n    \"2c405490-b8af-485d-a154-788b46b4d406\",\r\n    \"d5afa7a9-662d-4a54-8486-7c027b27cadd\",\r\n    \"a4c08942-7e59-4400-bdc6-adf35e2afc07\",\r\n    \"49c92d33-38b8-4d4e-b451-d21030885bd1\",\r\n    \"d652b3bd-4f0e-4e2e-ae2c-84e73404fb08\",\r\n    \"b5bf9cfc-97f6-4185-911a-51fc98ffd637\",\r\n    \"82fa1826-7dfa-4e44-9e1d-c8f7ad2920cc\",\r\n    \"db8c0e0b-d2b2-4adb-a1cc-4a13c1dbbc12\",\r\n    \"12a00ac8-4e1c-4e1b-8f4f-0afc19d8dcb8\",\r\n    \"e19d9e8a-b46a-4792-8b17-6318995278d5\",\r\n    \"af1fbd6b-3c5e-40ca-9b3b-0dc452f3d3c8\",\r\n    \"285c4224-98a5-4bd7-a1f1-301394830229\",\r\n    \"a2c5ad84-c15f-4cd6-893a-43061626621c\",\r\n    \"df0e520e-bff9-4216-9a72-ef046a5d0949\",\r\n    \"3bdcdf30-a95d-46ba-b790-8c51f148ad3a\",\r\n    \"b058f171-be78-4633-a229-d733761e76a9\",\r\n    \"ef852b2a-98b0-4afe-aadc-9185494aa102\",\r\n    \"32422084-63cf-41c7-ba00-17cd3253e077\",\r\n    \"3355051f-962a-4325-a592-7fba6052cd26\",\r\n    \"a6168147-f422-4e96-a7b1-51a85c767ec9\",\r\n    \"85448cbb-926a-41df-b3a1-3b2b91e8865a\",\r\n    \"db17bb36-41fe-4241-ac9c-9f5293fa9e9a\",\r\n    \"8960c20f-c487-4f9b-92ee-1e506ce13b67\",\r\n    \"9ef668be-d4f9-48c0-a9c3-ad2b6ff97e83\",\r\n    \"ea546ef8-6769-4cdb-b252-1666d29a1619\",\r\n    \"6b570b34-a7a3-45d9-968c-94bea14fd80a\",\r\n    \"c4ffd251-ccdb-4688-99a8-8501ccdb83bc\",\r\n    \"2e9fff1d-d783-481b-8808-74774b3bec0e\",\r\n    \"1b23092b-3d7e-45d7-929d-e446ee56db5d\",\r\n    \"a15e2f4c-657a-427a-97b4-4f77e3d7d7c6\",\r\n    \"be25da24-3ae9-4345-9f61-4e41594a6ce0\",\r\n    \"ce135a48-0ad3-4e5a-b09d-042fc98ace20\",\r\n    \"cd5d06c9-167c-4c92-906e-2666a07f6464\",\r\n    \"549a006c-70e4-4ca1-9ae1-43abae918629\",\r\n    \"0a2347c3-dae5-4a99-8efc-fd9d3b73288a\",\r\n    \"5089eb6e-c346-44d3-9857-1d1b6031163d\",\r\n    \"457665e9-15dd-4742-ad3b-d469d4feb245\",\r\n    \"cb1bb828-6e19-4ac3-98f6-13b37665c083\",\r\n    \"16e04cec-69b8-4f51-a50e-df54c9e17278\",\r\n    \"61349e84-0dc8-4538-9e65-145211a014e8\",\r\n    \"1c63a736-51e0-4c3d-b299-ab0445135cf4\",\r\n    \"5fec00eb-c297-4720-aca3-a915d740fb32\",\r\n    \"4d7a8634-51f3-4247-88c1-58dc1d6f5c6e\",\r\n    \"d59c24e6-6bea-414b-8d74-a5cbcc62cfc1\",\r\n    \"2458460b-cc3a-49a1-80ae-10de64e10c5a\",\r\n    \"644247de-27e3-46ce-98a8-b63ae209d163\",\r\n    \"8fd3df98-087c-488e-9cb8-8519e3f817b9\",\r\n    \"906676c6-0dc8-4d25-8054-1a20ef89961f\",\r\n    \"69c8eacd-901d-400d-b106-3edbe94d3977\",\r\n    \"8b5d03e9-64cf-419d-a0bf-c27d9550a252\",\r\n    \"fe2ad09b-341e-436b-9c79-8cb21afdd7e5\",\r\n    \"5b60eddf-d59a-47db-888b-0c5859d47925\",\r\n    \"ebfad0fc-7f5b-4252-b189-5d2400b54d48\",\r\n    \"5a96d8ab-68e0-495d-892d-b3629878eef8\",\r\n    \"ad1d9790-817e-40d8-8a68-081bfea2fa69\",\r\n    \"e29d7180-4f96-4810-9616-3a99a2bff32e\",\r\n    \"8b606e88-5f74-4eff-8bdb-f39ae7ad4c08\",\r\n    \"d5b03e5e-1902-429c-9bb8-eba729c8e973\",\r\n    \"37f12b9c-3de4-4f2c-b197-b3f8e4400c4f\",\r\n    \"4a9fdd6f-218b-4b39-9650-f3e4b2120ea5\",\r\n    \"dfb63331-4edd-41ab-9f6b-1e1fe39e3099\",\r\n    \"a864b310-d1a8-4e85-8b3f-a30bf086c437\",\r\n    \"2c1bad6b-67e0-4a96-8ded-e4a8cdea7f91\",\r\n    \"ace9b587-578f-46a8-877b-e95ceb4ffbe3\",\r\n    \"55c15f5d-2481-4060-8e80-304117c26179\",\r\n    \"6a00d251-4c17-41b0-8cd2-05d7cdcc18ac\",\r\n    \"50abe6bb-271d-4d71-a3f9-0842b35f1d85\",\r\n    \"deeb1ecd-609a-4c12-a892-29f760b73872\",\r\n    \"bdc38cad-fe86-426d-8549-8f25c0ddcc14\",\r\n    \"ed27c44f-2852-4309-a59b-ee6e59c01166\",\r\n    \"1d8afcf2-85ea-4337-9af9-aa16724f3aed\",\r\n    \"29a9927b-4b9a-4e50-9c88-b06adcfea36b\",\r\n    \"9366725e-7c7e-4df1-9982-c14fceb97df5\",\r\n    \"57dadb94-ea0a-4dea-9a81-96c4d3b3259c\",\r\n    \"c9f0fa40-a055-405c-b534-448b499eacf4\",\r\n    \"a96253be-00b0-49bc-8d59-966482c948b2\",\r\n    \"6c446c24-1dc9-4320-9c07-36b32ccda0f6\",\r\n    \"aa796076-aa0f-47f6-8b66-94c27adf4f51\",\r\n    \"136da309-60d9-46aa-b43a-fcfe98c4c6cd\",\r\n    \"b5603642-af89-4f7b-8b39-1de530aed2d7\",\r\n    \"77e61b0e-40c7-40d7-8e49-d2478bf2b627\",\r\n    \"66b9aa73-3708-49a7-9610-0094a979f610\",\r\n    \"2046bc61-32b5-49db-9ef0-0aa91526a3f1\",\r\n    \"6651c606-a489-4979-8d33-f58c098d36db\",\r\n    \"31490c4a-8162-4cd9-8ecc-ad440bd16680\",\r\n    \"9e446a82-ce06-46df-9a4e-c48dbff55ebf\",\r\n    \"6e3a11b8-6e53-4c3b-a0f5-1e2d34d62560\",\r\n    \"530e5f5a-1fdf-416a-a1f0-ec8af347a53a\",\r\n    \"2fce765f-a78a-4f3d-8ebb-af16c0a9486c\",\r\n    \"90e8c8b3-f726-4f01-abab-287fdd905c67\",\r\n    \"4825c71e-fa67-4e4e-a948-a29e6f0eda26\",\r\n    \"99913570-6088-42ef-beec-85617c5e4818\",\r\n    \"33b87b72-3e1e-4b5e-95f6-a463bfa2772a\",\r\n    \"abe8550d-10a7-4b61-b4ca-e1636cbde046\",\r\n    \"c67e1a68-5bfb-49d2-a375-f4d455ce3165\",\r\n    \"37ea2b0a-475d-4383-9f77-55b2b5edc9be\",\r\n    \"357d1284-b802-4cc4-8eb5-e6c63f69ee63\"\r\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/parse?searchString=357d1284-b802-4cc4-8eb5-e6c63f69ee63",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"parse"
+					],
+					"query": [
+						{
+							"key": "searchString",
+							"value": "357d1284-b802-4cc4-8eb5-e6c63f69ee63"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/api/query",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Correct number of queries needed is returned\", function () {\r",
+							"    pm.expect(pm.response.text()).to.equal(\"200\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/query?initialPrimaryKey=038aca33-a8c0-4b5d-8543-cc50b8f4895c",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"query"
+					],
+					"query": [
+						{
+							"key": "initialPrimaryKey",
+							"value": "038aca33-a8c0-4b5d-8543-cc50b8f4895c"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
